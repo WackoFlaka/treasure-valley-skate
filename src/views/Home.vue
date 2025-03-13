@@ -46,21 +46,21 @@
     <!-- Google Calendar Section -->
     <div class="calendar-section container">
       <h2>Our Schedule</h2>
-      <p>Check our open skating times and special events!</p>
+      <p>Check our open skating times and special events! We will be updating our schedule every week!</p>
       <div class="calendar-wrapper">
         <iframe src="https://calendar.google.com/calendar/embed?src=jchav5601%40gmail.com&ctz=America%2FDenver"
           style="border: 0" width="100%" height="600" frameborder="0" scrolling="no">
         </iframe>
       </div>
     </div>
-
-    <!-- Call to Action -->
+</div>
+    <!-- Call to Action 
     <div class="cta-section">
       <h2>Ready to Skate?</h2>
       <router-link to="/parties" class="btn btn-primary">Book a Party</router-link>
       <router-link to="/contact" class="btn btn-outline-light">Contact Us</router-link>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>
