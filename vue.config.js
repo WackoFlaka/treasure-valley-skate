@@ -4,6 +4,7 @@ module.exports = defineConfig({
 })
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/WackoFlaka/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/treasure-valley-skate/' : '/',
+  outputDir: 'docs' // Ensure Vue builds into /docs
 };
 
