@@ -2,7 +2,11 @@
   <div class="home">
     <!-- Hero Section -->
     <div class="hero">
-      <div class="text-center">
+      <video autoplay loop muted playsinline class="hero-video">
+        <source src="../assets/placeholder.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-overlay">
         <h1 class="business-name">Treasure Valley Skate</h1>
         <p class="slogan">"Where Fun Meets the Floor!"</p>
       </div>
@@ -46,7 +50,7 @@
     <!-- Google Calendar Section -->
     <div class="calendar-section container">
       <h2>Our Schedule</h2>
-      <p>Check our open skating times and special events! We will be updating our schedule every week</p>
+      <p>Check our open skating times and special events! We will be updating our schedule every week.</p>
       <div class="calendar-wrapper">
         <iframe src="https://calendar.google.com/calendar/embed?src=jchav5601%40gmail.com&ctz=America%2FDenver"
           style="border: 0" width="100%" height="600" frameborder="0" scrolling="no">
@@ -54,32 +58,46 @@
       </div>
     </div>
 </div>
-    <!-- Call to Action 
-    <div class="cta-section">
-      <h2>Ready to Skate?</h2>
-      <router-link to="/parties" class="btn btn-primary">Book a Party</router-link>
-      <router-link to="/contact" class="btn btn-outline-light">Contact Us</router-link>
-    </div>
-  </div> -->
 </template>
 
 <style scoped>
-/* Hero Section */
+/* Hero Section with Video */
 .hero {
   width: 100%;
   height: 100vh;
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('../assets/main_bg.jpg') no-repeat center center;
-  background-size: cover;
-  position: relative;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  color: white;
   background: rgba(0, 0, 0, 0.5);
 }
 
 .business-name {
-  color: white;
   font-size: 4rem;
   font-weight: bold;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
@@ -87,10 +105,10 @@
 }
 
 .slogan {
-  color: #ffcc00;
   font-size: 1.5rem;
   font-weight: 500;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  color: #ffcc00;
 }
 
 /* About Section */
@@ -118,37 +136,15 @@
 
 .feature-box img {
   width: 400px;
-  /* Increase image size */
   height: auto;
-  /* Maintain aspect ratio */
   max-width: 100%;
-  /* Prevents overflow */
   display: block;
   margin: 0 auto 15px;
-  /* Center the image */
 }
-
 
 .feature-box h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-}
-
-/* Call-to-Action Section */
-.cta-section {
-  text-align: center;
-  padding: 50px;
-  background: #ffcc00;
-  color: black;
-}
-
-.cta-section h2 {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.cta-section .btn {
-  margin: 10px;
 }
 
 /* Google Calendar Section */
@@ -175,6 +171,14 @@
 @media (max-width: 768px) {
   .calendar-section iframe {
     height: 400px;
+  }
+
+  .business-name {
+    font-size: 3rem;
+  }
+
+  .slogan {
+    font-size: 1.2rem;
   }
 }
 </style>
