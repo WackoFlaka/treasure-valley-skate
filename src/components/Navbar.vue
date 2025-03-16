@@ -19,9 +19,9 @@
           <li class="nav-item"><router-link class="nav-link" to="/about">About</router-link></li>
           <li class="nav-item"><router-link class="nav-link" to="/schedule">Schedule/Prices</router-link></li>
           <li class="nav-item"><router-link class="nav-link" to="/lessons">Skating Lessons</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/imagegallery">Image Gallery</router-link></li>
+       <!--   <li class="nav-item"><router-link class="nav-link" to="/imagegallery">Image Gallery</router-link></li> -->
           <li class="nav-item"><router-link class="nav-link" to="/contact">Contact</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/login">Login</router-link></li>
+       <!--   <li class="nav-item"><router-link class="nav-link" to="/login">Login</router-link></li> -->
         </ul>
       </div>
     </div>

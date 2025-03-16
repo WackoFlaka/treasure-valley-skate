@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <div class="hero">
       <video autoplay loop muted playsinline class="hero-video">
-        <source src="../assets/placeholder.mp4" type="video/mp4">
+        <source src="../assets/newtreasurevalleyskatevideo.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <div class="hero-overlay">
@@ -25,22 +25,22 @@
     <div class="features-section container">
       <div class="row">
         <div class="col-md-3 feature-box">
-          <img src="../assets/skating.jpg" alt="Skating" />
+          <img src="../assets/publicskate.jpg" alt="Skating" />
           <h3>Public Skating</h3>
           <p>Join us for open skate sessions with great music!</p>
         </div>
         <div class="col-md-3 feature-box">
-          <img src="../assets/party.jpg" alt="Parties" />
-          <h3>Parties & Events</h3>
-          <p>Celebrate birthdays and special events with us.</p>
+          <img src="../assets/IMG_5613.jpg" alt="Parties" />
+          <h3>Events</h3>
+          <p>Celebrate special events with us.</p>
         </div>
         <div class="col-md-3 feature-box">
-          <img src="../assets/arcade.jpg" alt="Arcade" />
+          <img src="../assets/newarcade.jpg" alt="Arcade" />
           <h3>Arcade & Games</h3>
           <p>Enjoy classic arcade games and prizes!</p>
         </div>
         <div class="col-md-3 feature-box">
-          <img src="../assets/food.jpg" alt="Food" />
+          <img src="../assets/IMG_5596.jpg" alt="Food" />
           <h3>Snack Bar</h3>
           <p>Delicious snacks and drinks to keep you energized.</p>
         </div>
@@ -136,7 +136,7 @@
 
 .feature-box img {
   width: 400px;
-  height: auto;
+  height: 250px;
   max-width: 100%;
   display: block;
   margin: 0 auto 15px;

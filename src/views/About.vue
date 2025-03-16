@@ -2,62 +2,78 @@
   <div class="about-page">
     <!-- Hero Section -->
     <div class="hero">
-      <div class="hero-overlay">
-        <h1 class="hero-title">About</h1>
-      </div>
+      <h1 class="hero-title">About</h1>
     </div>
 
-    <!-- Tabs Navigation -->
-    <div class="tabs">
-      <button @click="selectedTab = 'info'" :class="{ active: selectedTab === 'info' }">Info</button>
-      <button @click="selectedTab = 'rules'" :class="{ active: selectedTab === 'rules' }">Rules</button>
-    </div>
+    <!-- Tabs Section -->
+    <div class="tabs-container container">
+      <ul class="tabs">
+        <li :class="{ active: activeTab === 'info' }" @click="activeTab = 'info'">Info</li>
+        <li :class="{ active: activeTab === 'rules' }" @click="activeTab = 'rules'">Rules</li>
+      </ul>
 
-    <!-- Tab Content -->
-    <div class="tab-content">
-      <!-- Info Tab -->
-      <div v-if="selectedTab === 'info'">
-        <h2>Welcome to Treasure Valley Skate!</h2>
-        <p>
-          Conveniently located on State St., the communities of Meridian, Boise, Eagle, Kuna, and Star can soon enjoy
-          skating fun, play games, and experience the unique fun that Treasure Valley Skate and Family Fun Center provides.
-        </p>
-        <p>We look forward to seeing you soon.</p>
+      <div class="tab-content">
+        <!-- Info Tab -->
+        <div v-if="activeTab === 'info'">
+          <p>
+            Conveniently located on State St., the communities of Meridian, Boise, Eagle, Kuna, and Star can soon enjoy
+            skating fun, play games, and enjoy the unique experience and awesome fun that Treasure Valley Skate and
+            Family Fun Center will provide. We look forward to seeing you soon.
+          </p>
 
-        <!-- Additional Info Sections -->
-        <div class="info-sections">
-          <div class="info-box">
-            <h3>Our Shop</h3>
-            <p>Find high-quality roller skates, accessories, and fun skating merchandise at our pro shop.</p>
-          </div>
-          <div class="info-box">
-            <h3>Live DJ</h3>
-            <p>Enjoy music mixed by our in-house DJ, keeping the energy high and the fun rolling!</p>
-          </div>
-          <div class="info-box">
-            <h3>Snackbar</h3>
-            <p>Recharge with delicious snacks and drinks at our snackbar, featuring crowd-favorite treats.</p>
-          </div>
-          <div class="info-box">
-            <h3>Arcade Machines</h3>
-            <p>Take a break from skating and enjoy classic and modern arcade games with friends and family.</p>
-          </div>
-          <div class="info-box">
-            <h3>Events</h3>
-            <p>We host exciting themed skate nights, private parties, and community events. Stay tuned for upcoming fun!</p>
+          <!-- Information Sections -->
+          <div class="info-sections">
+            <div class="info-section">
+              <img src="../assets/IMG_5597.jpg" alt="Our Shop">
+              <h3>Our Shop</h3>
+              <p>Our shop offers high-quality skates, protective gear, and accessories to enhance your skating experience.</p>
+            </div>
+            <div class="info-section">
+              <img src="../assets/IMG_5596.jpg" alt="Snackbar">
+              <h3>Snackbar</h3>
+              <p>Enjoy a variety of snacks and beverages at our snackbar, perfect for refueling between skating sessions.</p>
+            </div>
+            <div class="info-section">
+              <img src="../assets/IMG_5613.jpg" alt="Live DJ">
+              <h3>Live DJ</h3>
+              <p>Experience the best skating vibes with our live DJ, playing great music to keep you moving on the rink.</p>
+            </div>
+            <div class="info-section">
+              <img src="../assets/newarcade.jpg" alt="Arcade">
+              <h3>Arcade</h3>
+              <p>Take a break from skating and enjoy classic arcade games with friends and family.</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Rules Tab -->
-      <div v-if="selectedTab === 'rules'">
-        <h2>Skating Rules</h2>
-        <p>These rules apply to everyone to ensure a fun and safe skating experience.</p>
-        <ul class="rules-list">
-          <li v-for="(rule, index) in rules" :key="index">
-            <strong>{{ index + 1 }} -</strong> {{ rule }}
-          </li>
-        </ul>
+        <!-- Rules Tab -->
+        <div v-if="activeTab === 'rules'">
+          <ul>
+            <li>1 - SKATE AT YOUR OWN RISK</li>
+            <li>2 - NO SMOKING, NO Vapes, NO E-Cigarettes!</li>
+            <li>3 - NO FOUL LANGUAGE!</li>
+            <li>4 - NO GUM CHEWING!</li>
+            <li>5 - FOOD & BEVERAGE ITEMS CANNOT BE BROUGHT INTO THE BUILDING.</li>
+            <li>6 - NO In & Out privileges or loitering around the building.</li>
+            <li>7 - NO outside alcoholic beverages or drugs.</li>
+            <li>8 - All patrons must be neatly groomed.</li>
+            <li>9 - All skates must be clean and in good repair.</li>
+            <li>10 - Fast, reckless, or unsafe skating is not permitted.</li>
+            <li>11 - No sitting on railings, walls, tables, or counters.</li>
+            <li>12 - All rental skates require socks.</li>
+            <li>13 - When the session is over, return skates properly.</li>
+            <li>14 - All personal belongings must be stored in lockers.</li>
+            <li>15 - Food and drinks must be kept in the snack bar area.</li>
+            <li>16 - Parents may be spectators only; all others must pay admission.</li>
+            <li>17 - Management reserves the right to inspect belongings.</li>
+            <li>18 - Please report all accidents to management.</li>
+            <li>19 - Patrons must follow all posted and verbal rules.</li>
+            <li>20 - Parents are responsible for their children’s actions.</li>
+            <li>21 - Management reserves the right to refuse entrance.</li>
+            <li>22 - All persons entering assume all risk of accidents and injury.</li>
+            <li>23 - Patrons must conduct themselves respectfully.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -67,32 +83,7 @@
 export default {
   data() {
     return {
-      selectedTab: "info",
-      rules: [
-        "SKATE AT YOUR OWN RISK",
-        "NO SMOKING, NO Vapes, NO E-Cigarettes!",
-        "NO FOUL LANGUAGE!",
-        "NO GUM CHEWING!",
-        "FOOD & BEVERAGE ITEMS CAN NOT BE BROUGHT INTO THE BUILDING.",
-        "NO In & Out privileges or loitering around the building. When you leave, you leave. Person will have to pay admission again for re-entry.",
-        "NO outside alcoholic beverages or drugs, or anyone under the influence of alcohol or drugs.",
-        "All patrons will be neatly groomed, no revealing clothes, clothes should be neat and clean.",
-        "All inline and quad skates must be clean and in good repair. NO MISSING WHEELS OR SHARP EDGES!",
-        "Fast, reckless, tag playing, or skating in an unsafe manner that may jeopardize the safety of others will not be permitted.",
-        "No sitting on railings, walls, tables or counters.",
-        "All persons renting skates must wear socks (Socks may be purchased for $4).",
-        "When skate session is over, tuck laces inside the rental skates and return them to the skate room.",
-        "All shoes, coats, purses, and personal belongings must be placed in a locker or unlocked wall locker. Items may not be kept at snack bar tables. Treasure Valley Skate is not responsible for any lost or stolen items.",
-        "All food and drink are to be kept in the snack bar area.",
-        "Parents may be spectators only. Everyone else entering the building must pay admission.",
-        "Management reserves the right to inspect lockers, skate cases, backpacks, or similar items when entering, while in the building, or leaving the building.",
-        "Please report all accidents to management.",
-        "Patrons must follow all posted and verbal rules and instructions.",
-        "Parents will be held responsible for the actions of their children.",
-        "Management reserves the right to refuse entrance to anyone for any reason.",
-        "All persons entering the building assume all risk regarding accidents and injury.",
-        "Patrons will conduct themselves at all times as ladies and gentlemen."
-      ]
+      activeTab: 'info'
     };
   }
 };
@@ -102,59 +93,52 @@ export default {
 /* Hero Section */
 .hero {
   width: 100%;
-  height: 300px;
-  background: url("../assets/main_bg.jpg") no-repeat center center;
+  height: 50vh;
+  background: url('../assets/main_bg.jpg') no-repeat center center;
   background-size: cover;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.hero-overlay {
-  background: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .hero-title {
   font-size: 3rem;
-  color: white;
   font-weight: bold;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Tabs Navigation */
+/* Tabs */
+.tabs-container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
 .tabs {
+  list-style: none;
+  padding: 0;
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.tabs button {
-  background: #ddd;
-  border: none;
+.tabs li {
   padding: 10px 20px;
-  margin: 0 5px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
+  border-bottom: 3px solid transparent;
 }
 
-.tabs button.active {
-  background: #ff4500;
-  color: white;
+.tabs li.active {
+  border-bottom: 3px solid #ff6600;
+  font-weight: bold;
 }
 
-/* Tab Content */
 .tab-content {
-  max-width: 900px;
+  text-align: left;
+  max-width: 800px;
   margin: auto;
-  text-align: center;
-  padding: 20px;
 }
 
 /* Info Sections */
@@ -166,48 +150,37 @@ export default {
   margin-top: 20px;
 }
 
-.info-box {
-  background: #f8f8f8;
-  padding: 15px;
+.info-section {
+  text-align: center;
+  width: 45%;
+  max-width: 400px;
+}
+
+.info-section img {
+  width: 100%;
+  height: 80%;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 280px;
 }
 
-.info-box h3 {
-  font-size: 1.4rem;
-  margin-bottom: 8px;
+.info-section h3 {
+  margin-top: 10px;
+  font-size: 1.2rem;
 }
 
-/* Rules List */
-.rules-list {
-  text-align: left;
-  padding: 20px;
-  background: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
-  margin: auto;
+.info-section p {
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 7rem;
 }
 
-.rules-list li {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  line-height: 1.4;
-}
-
-/* Mobile Responsive */
+/* Responsive */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
+  .info-sections {
+    flex-direction: column;
+    align-items: center;
   }
-
-  .info-box {
+  .info-section {
     width: 100%;
-  }
-
-  .rules-list {
-    padding: 15px;
   }
 }
 </style>
