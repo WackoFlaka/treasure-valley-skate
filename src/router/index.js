@@ -16,7 +16,8 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/lessons', component: Lessons },
   { path: '/imagegallery', component: ImageGallery },
-  { path: '/schedule', component: Schedule }
+  { path: '/schedule', component: Schedule },
+  { path: '/:catchAll(.*)', redirect: '/' } // ✅ Proper 404 redirect fix
 ];
 
 const router = createRouter({
