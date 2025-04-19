@@ -1,12 +1,10 @@
 <template>
   <div class="parties">
-    <!-- Hero Section with Background Image -->
     <div class="hero">
       <h1 class="title">Celebrate Your Party with Us!</h1>
       <p class="subtitle">Choose the perfect party package for an unforgettable experience.</p>
     </div>
 
-    <!-- Party Packages Section -->
     <div class="container">
       <div class="row">
         <div class="col-md-4" v-for="(packageItem, index) in partyPackages" :key="index">
@@ -17,9 +15,7 @@
               <p class="card-text">{{ packageItem.description }}</p>
               <h4 class="price">{{ packageItem.price }}</h4>
               <ul>
-                <li v-for="(feature, fIndex) in packageItem.features" :key="fIndex">
-                  ✅ {{ feature }}
-                </li>
+                <li v-for="(feature, fIndex) in packageItem.features" :key="fIndex">✅ {{ feature }}</li>
               </ul>
               <button class="btn btn-primary" @click="openBookingForm(packageItem)">Book Now</button>
             </div>
@@ -28,41 +24,36 @@
       </div>
     </div>
 
-    <!-- Booking Modal -->
     <div class="modal" v-if="showModal">
       <div class="modal-content">
         <span class="close" @click="showModal = false">&times;</span>
         <h2>Book a Party - {{ selectedPackage?.name }}</h2>
 
-        <!-- Date Selection -->
-        <label for="date">Select a Date:</label>
-        <input type="date" id="date" v-model="bookingData.date" @change="updateAvailableTimes">
+        <label>Select a Date:</label>
+        <input type="date" v-model="bookingData.date" @change="updateAvailableTimes">
 
-        <!-- Time Slot Selection -->
-        <label for="timeSlot">Select a Time Slot:</label>
-        <select id="timeSlot" v-model="bookingData.timeSlot" :disabled="availableTimeSlots.length === 0">
-          <option v-for="slot in availableTimeSlots" :key="slot" :value="slot">
-            {{ slot }} ({{ roomsAvailable[slot] }} rooms left)
+        <label>Select a Time Slot:</label>
+        <select v-model="bookingData.timeSlot">
+          <option v-for="slot in availableTimeSlots" :key="slot" :value="roomsAvailable[slot] === 0 ? '' : slot" :disabled="roomsAvailable[slot] === 0">
+            {{ slot }} - {{ roomsAvailable[slot] === 0 ? 'Fully Booked' : roomsAvailable[slot] + ' rooms left' }}
           </option>
         </select>
 
-        <!-- User Details -->
         <label>Name:</label>
-        <input type="text" v-model="bookingData.name" required>
+        <input v-model="bookingData.name" type="text" required>
 
         <label>Phone:</label>
-        <input type="tel" v-model="bookingData.phone" required>
+        <input v-model="bookingData.phone" type="tel" required>
 
         <label>Email:</label>
-        <input type="email" v-model="bookingData.email" required>
+        <input v-model="bookingData.email" type="email" required>
 
         <label>Birthday Person's Name:</label>
-        <input type="text" v-model="bookingData.birthdayName" required>
+        <input v-model="bookingData.birthdayName" type="text">
 
         <label>Birthday Person's Age:</label>
-        <input type="number" v-model="bookingData.birthdayAge" required>
+        <input v-model="bookingData.birthdayAge" type="number">
 
-        <!-- Food Choice -->
         <label>Food Choice:</label>
         <select v-model="bookingData.foodChoice">
           <option value="Pizza">Pizza</option>
@@ -70,7 +61,6 @@
           <option value="Nachos">Nachos</option>
         </select>
 
-        <!-- Payment Option with Computed Amounts -->        
         <label>Payment:</label>
         <select v-model="bookingData.payment">
           <option v-for="option in paymentOptions" :key="option.value" :value="option.value">
@@ -78,7 +68,7 @@
           </option>
         </select>
 
-        <button class="btn btn-success" :disabled="roomsAvailable[bookingData.timeSlot] === 0" @click="submitBooking">
+        <button class="btn btn-success" :disabled="roomsAvailable[bookingData.timeSlot] === 0 || !bookingData.timeSlot" @click="submitBooking">
           Submit Reservation
         </button>
       </div>
@@ -87,65 +77,88 @@
 </template>
 
 <script>
+import api from '@/services/api';
+
 export default {
   data() {
     return {
       showModal: false,
       selectedPackage: null,
+      reservations: [],
       bookingData: {
-        date: "",
-        timeSlot: "",
-        name: "",
-        phone: "",
-        email: "",
-        birthdayName: "",
-        birthdayAge: "",
-        foodChoice: "Pizza",
-        payment: "Deposit", // Default, will be replaced by computed options
+        date: '',
+        timeSlot: '',
+        name: '',
+        phone: '',
+        email: '',
+        birthdayName: '',
+        birthdayAge: '',
+        foodChoice: 'Pizza',
+        payment: 'Deposit'
       },
       availableTimeSlots: [],
       roomsAvailable: {},
-      reservations: [],
       partyPackages: [
         {
-          name: "Basic Party Package",
+          name: "Mini Skater (Basic)",
           image: require('../assets/arcade.jpg'),
-          description: "A simple yet fun skating party for your group.",
-          price: "$150",
+          description: "A perfect intro party for your young skaters!",
+          price: "$235",
           deposit: 50,
-          fullPayment: 150,
-          features: ["2-hour skating session", "Reserved party table", "10 skate rentals"]
+          fullPayment: 235,
+          features: [
+            "10 Admission + Rentals",
+            "Basic Decorations",
+            "Choose one main dish (pizza, hotdogs, or nachos)",
+            "Ice Cream Cups",
+            "Bring your own cake & Balloons (optional)",
+            "80 minutes for room"
+          ]
         },
         {
-          name: "Deluxe Party Package",
+          name: "Glow Bash (Super)",
           image: require('../assets/arcade.jpg'),
-          description: "More fun with extra perks and decorations.",
-          price: "$250",
-          deposit: 75,
-          fullPayment: 250,
-          features: ["3-hour skating session", "Decorated party area", "15 skate rentals", "Pizza & drinks included"]
+          description: "A glowing party experience with extras for everyone!",
+          price: "$400",
+          deposit: 50,
+          fullPayment: 400,
+          features: [
+            "20 Admission + Rentals",
+            "Glow Bracelets",
+            "Choose one main dish (pizza, hotdogs, or nachos)",
+            "Ice Cream Cups",
+            "Bring your own cake & Balloons (optional)",
+            "Upgraded Decorations",
+            "80 minutes for room"
+          ]
         },
         {
-          name: "Ultimate Party Package",
+          name: "Ultimate (Grande)",
           image: require('../assets/arcade.jpg'),
-          description: "The best skating party experience with VIP treatment!",
-          price: "$350",
-          deposit: 100,
-          fullPayment: 350,
-          features: ["4-hour skating session", "VIP party room", "20 skate rentals", "Full meal package", "Party host included"]
+          description: "Our most premium party experience with all the fun included.",
+          price: "$500",
+          deposit: 50,
+          fullPayment: 500,
+          features: [
+            "30 Admission + Rentals",
+            "Glow Toys for all",
+            "Choose one main dish (pizza, hotdogs, or nachos)",
+            "Ice Cream Cups",
+            "Bring your own cake & Balloons (optional)",
+            "80 minutes for room"
+          ]
         }
       ],
-      // Available hours for each day
       availableHours: {
+        Saturday: ["1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM", "6:00 PM - 8:30 PM"],
+        Sunday: ["1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM"],
         Monday: ["6:00 PM - 8:30 PM"],
-        Tuesday: [],
         Wednesday: ["6:00 PM - 8:30 PM"],
         Thursday: ["6:00 PM - 8:30 PM"],
         Friday: ["6:00 PM - 8:30 PM"],
-        Saturday: ["1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM", "6:00 PM - 8:30 PM"],
-        Sunday: ["1:00 PM - 3:00 PM", "3:00 PM - 5:00 PM"]
+        Tuesday: []
       },
-      maxRooms: 3,
+      maxRooms: 3
     };
   },
   computed: {
@@ -158,55 +171,49 @@ export default {
     }
   },
   methods: {
+    async loadReservations() {
+      const res = await api.getReservations();
+      this.reservations = res.data;
+    },
     openBookingForm(packageItem) {
       this.selectedPackage = packageItem;
       this.showModal = true;
-      // Reset booking fields
-      this.bookingData.date = "";
-      this.bookingData.timeSlot = "";
-      this.bookingData.name = "";
-      this.bookingData.phone = "";
-      this.bookingData.email = "";
-      this.bookingData.birthdayName = "";
-      this.bookingData.birthdayAge = "";
-      this.bookingData.foodChoice = "Pizza";
-      this.bookingData.payment = "Deposit";
-      this.availableTimeSlots = [];
-      this.roomsAvailable = {};
-      this.loadReservations();
+      this.bookingData = {
+        date: '', timeSlot: '', name: '', phone: '', email: '',
+        birthdayName: '', birthdayAge: '', foodChoice: 'Pizza', payment: 'Deposit'
+      };
     },
     updateAvailableTimes() {
-  if (!this.bookingData.date) return;
-  // Append "T00:00:00" to force local time interpretation
-  const selectedDate = new Date(this.bookingData.date + "T00:00:00");
-  const options = { weekday: "long", timeZone: "America/Boise" };
-  const dayOfWeek = selectedDate.toLocaleDateString("en-US", options);
-  this.availableTimeSlots = this.availableHours[dayOfWeek] || [];
-  this.availableTimeSlots.forEach(slot => {
-    this.roomsAvailable[slot] = this.maxRooms - this.countBookedRooms(this.bookingData.date, slot);
-  });
-},
-    countBookedRooms(date, timeSlot) {
-      return this.reservations.filter(res => res.date === date && res.timeSlot === timeSlot).length;
+      const selectedDate = new Date(this.bookingData.date + 'T00:00:00');
+      const day = selectedDate.toLocaleDateString('en-US', { weekday: 'long', timeZone: 'America/Boise' });
+      this.availableTimeSlots = this.availableHours[day] || [];
+
+      // reset room availability
+      this.roomsAvailable = {};
+      this.availableTimeSlots.forEach(slot => {
+        const count = this.reservations.filter(r => r.date === this.bookingData.date && r.timeSlot === slot).length;
+        this.roomsAvailable[slot] = Math.max(0, this.maxRooms - count);
+      });
     },
-    submitBooking() {
-      if (!this.bookingData.date || !this.bookingData.timeSlot || this.roomsAvailable[this.bookingData.timeSlot] === 0) {
-        alert("Please select a valid and available time slot.");
-        return;
-      }
-      const reservation = {
-        ...this.bookingData,
-        package: this.selectedPackage.name
-      };
-      this.reservations.push(reservation);
-      localStorage.setItem("reservations", JSON.stringify(this.reservations));
-      alert("Reservation submitted! The admin will confirm soon.");
-      this.showModal = false;
-    },
-    loadReservations() {
-      const savedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
-      this.reservations = savedReservations;
+    async submitBooking() {
+  const reservation = {
+    ...this.bookingData,
+    package: this.selectedPackage.name,
+    downloaded: false
+  };
+
+  try {
+    const res = await api.createCheckoutSession({ reservation });
+    if (res.data && res.data.url) {
+      window.location.href = res.data.url; // Redirect to Stripe Checkout
+    } else {
+      alert('Something went wrong creating the checkout session.');
     }
+  } catch (err) {
+    console.error('Stripe error:', err);
+    alert('Payment could not be processed.');
+  }
+}
   },
   created() {
     this.loadReservations();
